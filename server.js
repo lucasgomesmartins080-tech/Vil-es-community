@@ -47,6 +47,18 @@ const ADMINS_AUTORIZADOS = (process.env.ADMIN_IDS || '')
 
 const DATA_FILE = path.join(__dirname, 'data.json');
 
+// Em um deploy novo (ex: Render) esse arquivo não existe ainda — cria vazio.
+if (!fs.existsSync(DATA_FILE)) {
+    fs.writeFileSync(DATA_FILE, JSON.stringify({
+        noticias: [],
+        sugestoes: [],
+        parcerias: [],
+        spoilers: [],
+        membros: {},
+        proximoId: { noticias: 1, sugestoes: 1, parcerias: 1, spoilers: 1 }
+    }, null, 2), 'utf-8');
+}
+
 function lerDados() {
     const raw = fs.readFileSync(DATA_FILE, 'utf-8');
     const dados = JSON.parse(raw);
