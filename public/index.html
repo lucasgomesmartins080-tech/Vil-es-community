@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vilões Community | Comunidade Oficial</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        villain: {
+                            400: '#fafafa',
+                            500: '#e4e4e7',
+                            600: '#f5f5f5',
+                            700: '#a1a1aa',
+                            800: '#3f3f46',
+                            900: '#27272a',
+                            950: '#0a0a0b'
+                        }
+                    },
+                    keyframes: {
+                        fadein: {
+                            '0%': { opacity: 0, transform: 'translateY(6px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' }
+                        }
+                    },
+                    animation: {
+                        fadein: 'fadein .35s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 45%); }
+        .glass {
+            background: rgba(15, 15, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+        }
+        .tab-btn.active {
+            background-color: #f5f5f5;
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+        }
+        .card-hover {
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -12px rgba(255,255,255,0.25);
+        }
+        .neon-text {
+            text-shadow: 0 0 6px rgba(255,255,255,0.55), 0 0 18px rgba(255,255,255,0.3);
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+    </style>
+</head>
+<body class="bg-black text-zinc-100 min-h-screen flex flex-col font-sans selection:bg-white selection:text-black">
+
+    <!-- Navegação Superior -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+
+            <div class="flex items-center gap-3 cursor-pointer" onclick="mudarAba('inicio')">
+                <div class="w-11 h-11 rounded-xl bg-black border border-white/25 flex items-center justify-center shadow-lg shadow-black/50">
+                    <span class="text-white font-black text-xl neon-text">V</span>
+                </div>
+                <div class="leading-none select-none">
+                    <span class="block text-lg sm:text-xl font-black uppercase tracking-widest text-white neon-text">VILÕES</span>
+                    <span class="block text-xs sm:text-sm italic font-semibold text-zinc-300 -mt-0.5" style="font-family: Georgia, 'Times New Roman', serif;">Community</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-1 text-xs font-semibold overflow-x-auto py-2">
+                <button onclick="mudarAba('inicio')" id="nav-inicio" class="tab-btn active px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-house mr-1"></i> Início
+                </button>
+                <button onclick="mudarAba('sobre')" id="nav-sobre" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Quem Somos
+                </button>
+                <button onclick="mudarAba('noticias')" id="nav-noticias" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-newspaper mr-1"></i> Notícias
+                </button>
+                <button onclick="mudarAba('spoilers')" id="nav-spoilers" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-eye mr-1"></i> Spoilers
+                </button>
+                <button onclick="mudarAba('sugestoes')" id="nav-sugestoes" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-lightbulb mr-1"></i> Sugestões
+                </button>
+                <button onclick="mudarAba('parcerias')" id="nav-parcerias" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-handshake mr-1"></i> Parcerias
+                </button>
+                <button onclick="mudarAba('online')" id="nav-online" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-users mr-1"></i> Online
+                </button>
+                <button onclick="mudarAba('regras')" id="nav-regras" class="tab-btn text-zinc-400 hover:text-white px-3 py-2 rounded-xl transition border border-transparent whitespace-nowrap">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> Regras
+                </button>
+                <!-- Botão do Admin -->
+                <button onclick="mudarAba('admin')" id="nav-admin" class="hidden tab-btn text-white hover:text-zinc-200 bg-zinc-900/60 border border-white/20 px-3 py-2 rounded-xl transition whitespace-nowrap">
+                    <i class="fa-solid fa-lock-open mr-1 text-white"></i> Painel Admin
+                </button>
+            </div>
+
+            <div id="user-area" class="flex items-center gap-2">
+                <a id="btn-login" href="/api/auth/login" class="bg-villain-600 hover:bg-villain-700 text-black font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition glow flex items-center gap-2 shadow-lg shadow-villain-950 whitespace-nowrap">
+                    <i class="fa-brands fa-discord text-base"></i> Entrar
+                </a>
+
+                <div id="user-profile" class="hidden flex items-center space-x-3 bg-zinc-950 border border-zinc-800 px-3 py-1.5 rounded-xl shadow-inner">
+                    <img id="user-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-lg border border-villain-600 object-cover">
+                    <div class="text-left hidden sm:block">
+                        <p id="user-name" class="text-xs font-bold text-zinc-100 leading-none"></p>
+                        <span id="user-role-badge" class="text-[10px] font-mono text-villain-500">MEMBRO VERIFICADO</span>
+                    </div>
+                    <a href="/api/auth/logout" class="text-zinc-500 hover:text-white text-xs ml-1 transition" title="Sair">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu mobile -->
+        <div class="lg:hidden flex items-center gap-1 text-[11px] font-semibold overflow-x-auto px-3 pb-2">
+            <button onclick="mudarAba('inicio')" class="mob-tab tab-btn active px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-house"></i></button>
+            <button onclick="mudarAba('sobre')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-circle-info"></i></button>
+            <button onclick="mudarAba('noticias')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-newspaper"></i></button>
+            <button onclick="mudarAba('spoilers')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-eye"></i></button>
+            <button onclick="mudarAba('sugestoes')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-lightbulb"></i></button>
+            <button onclick="mudarAba('parcerias')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-handshake"></i></button>
+            <button onclick="mudarAba('online')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-users"></i></button>
+            <button onclick="mudarAba('regras')" class="mob-tab tab-btn text-zinc-400 px-3 py-1.5 rounded-lg whitespace-nowrap"><i class="fa-solid fa-shield-halved"></i></button>
+        </div>
+    </nav>
+
+    <main class="pt-28 lg:pt-24 pb-12 flex-1">
+
+        <!-- ABA INÍCIO -->
+        <section id="aba-inicio" class="px-4 min-h-[80vh] flex items-center justify-center">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 bg-villain-950 border border-villain-900 text-villain-500 text-xs font-mono px-4 py-1.5 rounded-full mb-6">
+                    <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                    <span>COMUNIDADE ATIVA NO DISCORD</span>
+                </div>
+
+                <h1 class="text-5xl sm:text-7xl font-black uppercase tracking-tight mb-6">
+                    BEM-VINDO À <br><span class="neon-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">VILÕES COMMUNITY</span>
+                </h1>
+
+                <p class="text-zinc-400 text-base sm:text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Conecte sua conta para acompanhar as notícias, sugerir ideias, ver quem está online e participar da nossa comunidade no Discord.
+                </p>
+
+                <div id="welcome-card" class="glass p-6 rounded-2xl max-w-md mx-auto my-6 hidden shadow-2xl shadow-villain-950/50 border border-villain-900">
+                    <div class="flex items-center space-x-4">
+                        <img id="card-avatar" src="" class="w-14 h-14 rounded-xl border-2 border-villain-600 shadow-md">
+                        <div class="text-left">
+                            <span class="text-[10px] font-mono text-white uppercase tracking-wider">● Conectado ao Discord</span>
+                            <h3 id="card-name" class="text-lg font-bold text-zinc-100"></h3>
+                            <p id="card-tag" class="text-xs text-zinc-400 font-mono"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+                    <a href="https://discord.gg/Gv3sE7h5A9" target="_blank" class="bg-villain-600 hover:bg-villain-700 text-black font-bold text-sm uppercase px-8 py-3.5 rounded-xl transition glow flex items-center gap-2">
+                        <i class="fa-brands fa-discord text-lg"></i> Entrar no Discord
+                    </a>
+                    <button onclick="mudarAba('sugestoes')" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-bold text-sm uppercase px-8 py-3.5 rounded-xl transition">
+                        Dar uma Ideia
+                    </button>
+                </div>
+
+                <!-- Estatísticas ao vivo -->
+                <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                    <div class="glass rounded-2xl p-5 border border-zinc-800">
+                        <p class="text-3xl font-black text-white font-mono" id="stat-membros">—</p>
+                        <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1">Membros</p>
+                    </div>
+                    <div class="glass rounded-2xl p-5 border border-zinc-800">
+                        <p class="text-3xl font-black text-white font-mono flex items-center justify-center gap-2" id="stat-online">
+                            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>—
+                        </p>
+                        <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1">Online Agora</p>
+                    </div>
+                </div>
+
+                <!-- Central do Membro (só aparece logado) -->
+                <div id="painel-membro" class="hidden mt-12 grid lg:grid-cols-3 gap-5 text-left">
+                    <div class="glass rounded-2xl p-5 border border-zinc-800">
+                        <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-newspaper text-villain-500"></i> Última Notícia
+                        </h3>
+                        <div id="membro-ultima-noticia" class="text-sm text-zinc-500">Carregando...</div>
+                    </div>
+                    <div class="glass rounded-2xl p-5 border border-zinc-800">
+                        <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-villain-500"></i> Sugestão em Alta
+                        </h3>
+                        <div id="membro-top-sugestao" class="text-sm text-zinc-500">Carregando...</div>
+                    </div>
+                    <div class="glass rounded-2xl p-5 border border-zinc-800">
+                        <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-ranking-star text-villain-500"></i> Membros Mais Ativos
+                        </h3>
+                        <div id="membro-ranking" class="text-sm text-zinc-500">Carregando...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA QUEM SOMOS -->
+        <section id="aba-sobre" class="hidden px-4 max-w-5xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Sobre a Comunidade</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Quem Somos</h2>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border border-zinc-800 mb-8 text-center">
+                <div class="mb-4">
+                    <span class="block text-2xl font-black uppercase tracking-widest text-white neon-text">VILÕES</span>
+                    <span class="block text-sm italic font-semibold text-zinc-300 -mt-1" style="font-family: Georgia, 'Times New Roman', serif;">Community</span>
+                </div>
+                <p class="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+                    Somos a <span class="text-white font-bold">Vilões Community</span>, uma comunidade brasileira no Discord feita pra você conversar sem frescura, jogar com os amigos e fazer novas amizades. Aqui tem espaço pra todo mundo: bate-papo em texto e voz, parceiro pra jogar junto, eventos e um cantinho pra você se sentir em casa.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-4">
+                <div class="glass p-6 rounded-2xl border border-zinc-800 text-center card-hover">
+                    <i class="fa-solid fa-comments text-2xl text-villain-500 mb-3"></i>
+                    <h3 class="font-bold text-white text-sm mb-1">Bate-papo Livre</h3>
+                    <p class="text-zinc-400 text-xs">Canais de texto e voz sempre ativos pra você desabafar, zoar e trocar ideia com a galera.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border border-zinc-800 text-center card-hover">
+                    <i class="fa-solid fa-gamepad text-2xl text-villain-500 mb-3"></i>
+                    <h3 class="font-bold text-white text-sm mb-1">Jogue com a Galera</h3>
+                    <p class="text-zinc-400 text-xs">Chame um grupo, monte a party e joga o que quiser com quem também tá on.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border border-zinc-800 text-center card-hover">
+                    <i class="fa-solid fa-users text-2xl text-villain-500 mb-3"></i>
+                    <h3 class="font-bold text-white text-sm mb-1">Faça Novas Amizades</h3>
+                    <p class="text-zinc-400 text-xs">Eventos, sorteios e atividades pensados pra aproximar a comunidade e criar amizade de verdade.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <a href="https://discord.gg/Gv3sE7h5A9" target="_blank" class="inline-flex bg-villain-600 hover:bg-villain-700 text-black font-bold text-sm uppercase px-8 py-3.5 rounded-xl transition glow items-center gap-2">
+                    <i class="fa-brands fa-discord text-lg"></i> Entrar na Vilões Community
+                </a>
+            </div>
+        </section>
+
+        <!-- ABA NOTÍCIAS -->
+        <section id="aba-noticias" class="hidden px-4 max-w-6xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Informativos Oficiais</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Notícias e Atualizações</h2>
+                <p class="text-zinc-500 text-sm mt-1">Fique por dentro de todas as notas de atualização, eventos e avisos do servidor</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6" id="container-noticias">
+                <p class="text-zinc-500 text-sm col-span-full text-center">Carregando notícias...</p>
+            </div>
+        </section>
+
+        <!-- ABA SPOILERS -->
+        <section id="aba-spoilers" class="hidden px-4 max-w-5xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Área de Spoilers</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Spoilers</h2>
+                <p class="text-zinc-500 text-sm mt-1">Fique por dentro das novidades da nossa cidade e servidor</p>
+            </div>
+
+            <div class="space-y-6" id="container-spoilers">
+                <p class="text-zinc-500 text-sm text-center">Carregando spoilers...</p>
+            </div>
+        </section>
+
+        <!-- ABA SUGESTÕES -->
+        <section id="aba-sugestoes" class="hidden px-4 max-w-5xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Feedback & Ideias</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Caixa de Sugestões</h2>
+                <p class="text-zinc-500 text-sm mt-1">Envie suas ideias para melhorar a comunidade e vote nas sugestões de outros membros</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="glass p-6 rounded-2xl border border-zinc-800 h-fit">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-villain-500 text-sm"></i> Enviar Nova Ideia
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono text-zinc-400 uppercase mb-1">Título da Sugestão</label>
+                            <input id="sugestao-titulo" type="text" placeholder="Ex: Novo evento de corridas" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-villain-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-zinc-400 uppercase mb-1">Descrição Detalhada</label>
+                            <textarea id="sugestao-texto" rows="4" placeholder="Explique como funcionaria a sua ideia..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-villain-500 transition resize-none"></textarea>
+                        </div>
+                        <button onclick="enviarSugestao()" class="w-full bg-villain-600 hover:bg-villain-700 text-black font-black text-xs uppercase py-3 rounded-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Publicar Sugestão
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-4" id="lista-sugestoes">
+                    <p class="text-zinc-500 text-sm text-center">Carregando sugestões...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA PARCERIAS -->
+        <section id="aba-parcerias" class="hidden px-4 max-w-4xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Rede de Parcerias</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Solicitar Parceria</h2>
+                <p class="text-zinc-500 text-sm mt-1">Preencha as informações abaixo para análise da equipe</p>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border border-zinc-800">
+                <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-xs font-mono text-zinc-400 uppercase mb-2">Nome do Servidor</label>
+                        <input id="parceria-nome" type="text" placeholder="Ex: Brasil Roleplay" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-villain-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-zinc-400 uppercase mb-2">Link do Discord</label>
+                        <input id="parceria-link" type="url" placeholder="https://discord.gg/seulink" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-villain-500 transition">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-mono text-zinc-400 uppercase mb-2">Descrição</label>
+                    <textarea id="parceria-desc" rows="4" placeholder="Conte sobre seu servidor..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-villain-500 transition resize-none"></textarea>
+                </div>
+                <button onclick="solicitarParceria()" class="w-full bg-villain-600 hover:bg-villain-700 text-black font-black text-sm uppercase py-4 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-handshake"></i> Enviar Solicitação
+                </button>
+            </div>
+        </section>
+
+        <!-- ABA ONLINE -->
+        <section id="aba-online" class="hidden px-4 max-w-6xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-villain-500 uppercase tracking-widest bg-villain-950/40 border border-villain-900/50 px-3 py-1 rounded-full">Status em Tempo Real</span>
+                <h2 class="text-4xl font-black uppercase tracking-wider mt-3">Membros Online</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl border border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h3 id="online-nome-servidor" class="font-bold text-white text-lg">Servidor Vilões Community</h3>
+                    <p class="text-xs text-zinc-400 font-mono">discord.gg/Gv3sE7h5A9</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="text-center">
+                        <span id="online-total-membros" class="text-2xl font-black text-white font-mono block">—</span>
+                        <span class="text-[10px] text-zinc-500 uppercase">Membros</span>
+                    </div>
+                    <div class="text-center">
+                        <span id="online-count" class="text-2xl font-black text-white font-mono block">—</span>
+                        <span class="text-[10px] text-zinc-500 uppercase">Online</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA REGRAS -->
+        <section id="aba-regras" class="hidden px-4 max-w-5xl mx-auto py-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black uppercase tracking-wider">Regras da Comunidade</h2>
+                <p class="text-zinc-500 text-sm mt-1">O respeito por essas regras mantém a Vilões Community um lugar bom para todos</p>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="glass p-6 rounded-2xl border-l-4 border-l-villain-600">
+                    <h3 class="text-lg font-bold">1. Respeito Mútuo</h3>
+                    <p class="text-zinc-400 text-sm mt-2">Não toleramos qualquer tipo de ofensas, preconceito ou desrespeito entre membros.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-l-villain-600">
+                    <h3 class="text-lg font-bold">2. Sem Spam ou Flood</h3>
+                    <p class="text-zinc-400 text-sm mt-2">Evite enviar mensagens repetidas ou divulgar conteúdo fora dos canais apropriados.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-l-villain-600">
+                    <h3 class="text-lg font-bold">3. Conteúdo Apropriado</h3>
+                    <p class="text-zinc-400 text-sm mt-2">Nada de conteúdo NSFW, ilegal ou que viole os Termos de Serviço do Discord.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-l-villain-600">
+                    <h3 class="text-lg font-bold">4. Siga a Equipe</h3>
+                    <p class="text-zinc-400 text-sm mt-2">Decisões da moderação devem ser respeitadas. Discorda de algo? Abra um ticket.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA PAINEL ADMIN (RESTRITO) -->
+        <section id="aba-admin" class="hidden px-4 max-w-6xl mx-auto py-8">
+            <div class="flex items-center justify-between bg-villain-950/30 border border-villain-900/60 p-6 rounded-2xl mb-8 flex-wrap gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-villain-600/20 border border-villain-500/40 flex items-center justify-center text-white text-2xl">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black uppercase text-white tracking-wider">Painel Administrativo</h2>
+                        <p class="text-xs text-zinc-400 font-mono">Gerenciamento do Servidor</p>
+                    </div>
+                </div>
+                <span class="bg-villain-500/20 border border-villain-500/40 text-white text-xs font-mono font-bold px-3 py-1.5 rounded-lg uppercase">
+                    Acesso Autorizado
+                </span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="glass p-6 rounded-2xl border border-zinc-800">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-bullhorn text-villain-500"></i> Publicar Notícia</h3>
+                    <div class="space-y-4">
+                        <input id="admin-noticia-tag" type="text" placeholder="Tag (ex: Changelog v2.5)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white">
+                        <input id="admin-noticia-titulo" type="text" placeholder="Título" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white">
+                        <textarea id="admin-noticia-texto" rows="4" placeholder="Conteúdo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white resize-none"></textarea>
+                        <div>
+                            <label class="block text-xs font-mono text-zinc-400 uppercase mb-1">Imagem (opcional)</label>
+                            <input id="admin-noticia-imagem" type="file" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-[10px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-villain-600 file:text-black file:text-[10px] file:uppercase file:font-bold">
+                        </div>
+                        <button id="btn-publicar-noticia" onclick="adminPublicarNoticia()" class="w-full bg-villain-600 hover:bg-villain-700 text-black font-bold text-xs uppercase py-3 rounded-xl transition">Publicar</button>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-zinc-800">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-fire text-villain-500"></i> Publicar Spoiler</h3>
+                    <div class="space-y-4">
+                        <textarea id="admin-spoiler-texto" rows="3" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white resize-none" placeholder="Novo spoiler da cidade..."></textarea>
+                        <input id="admin-spoiler-meta" type="number" min="1" placeholder="Meta de reações (ex: 20)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white">
+                        <div>
+                            <label class="block text-xs font-mono text-zinc-400 uppercase mb-1">Imagem (opcional)</label>
+                            <input id="admin-spoiler-imagem" type="file" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-[10px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-villain-600 file:text-black file:text-[10px] file:uppercase file:font-bold">
+                        </div>
+                        <button id="btn-publicar-spoiler" onclick="adminPublicarSpoiler()" class="w-full bg-villain-600 hover:bg-villain-700 text-black font-black text-xs uppercase py-3 rounded-xl transition">Publicar Spoiler</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="glass p-6 rounded-2xl border border-zinc-800">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-lightbulb text-villain-500"></i> Moderar Sugestões</h3>
+                    <div id="admin-lista-sugestoes" class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                        <p class="text-zinc-500 text-xs text-center">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-zinc-800">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-handshake text-villain-500"></i> Solicitações de Parceria</h3>
+                    <div id="admin-lista-parcerias" class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                        <p class="text-zinc-500 text-xs text-center">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border border-zinc-800">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-eye text-villain-500"></i> Moderar Spoilers</h3>
+                    <div id="admin-lista-spoilers" class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                        <p class="text-zinc-500 text-xs text-center">Carregando...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-zinc-900 py-6 bg-black text-center text-zinc-600 text-xs">
+        <p>&copy; 2026 Vilões Community. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        let usuarioLogado = null;
+        let usuarioEhAdmin = false;
+
+        function alertaErro(titulo, texto) {
+            Swal.fire({ icon: 'error', title: titulo, text: texto, background: '#0f0f12', color: '#fff' });
+        }
+        function alertaSucesso(titulo, texto) {
+            Swal.fire({ icon: 'success', title: titulo, text: texto, background: '#0f0f12', color: '#fff', timer: 1800, showConfirmButton: false });
+        }
+        function exigirLogin() {
+            Swal.fire({
+                icon: 'info', title: 'Faça login primeiro',
+                text: 'Você precisa entrar com sua conta do Discord para fazer isso.',
+                background: '#0f0f12', color: '#fff',
+                confirmButtonText: 'Entrar com Discord', confirmButtonColor: '#27272a'
+            }).then(r => { if (r.isConfirmed) window.location.href = '/api/auth/login'; });
+        }
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+        }
+        function formatarData(iso) {
+            return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        // Faz fetch e garante um erro legível mesmo se o servidor responder algo
+        // que não é JSON (ex: página de erro HTML porque uma rota nova ainda
+        // não existe no processo rodando — sintoma clássico de servidor desatualizado).
+        async function apiJson(url, options) {
+            const res = await fetch(url, options);
+            const texto = await res.text();
+            try {
+                return texto ? JSON.parse(texto) : {};
+            } catch {
+                throw new Error(`O servidor respondeu de forma inesperada (HTTP ${res.status}). Reinicie o servidor (pare com Ctrl+C e rode "npm start" de novo) e recarregue a página.`);
+            }
+        }
+
+        async function enviarImagem(inputEl) {
+            if (!inputEl.files || !inputEl.files[0]) return null;
+            const formData = new FormData();
+            formData.append('imagem', inputEl.files[0]);
+            const data = await apiJson('/api/admin/upload', { method: 'POST', body: formData });
+            if (!data.success) throw new Error(data.error || 'Erro ao enviar imagem.');
+            return data.url;
+        }
+
+        const ABAS = ['inicio', 'sobre', 'noticias', 'spoilers', 'sugestoes', 'parcerias', 'online', 'regras', 'admin'];
+
+        function mudarAba(nomeAba) {
+            if (nomeAba === 'admin' && !usuarioEhAdmin) {
+                alertaErro('Acesso Negado', 'Você não tem permissão para acessar o Painel Admin.');
+                return;
+            }
+
+            ABAS.forEach(aba => {
+                const el = document.getElementById(`aba-${aba}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-zinc-400');
+            });
+
+            const targetAba = document.getElementById(`aba-${nomeAba}`);
+            if (targetAba) {
+                targetAba.classList.remove('hidden');
+                targetAba.classList.add('animate-fadein');
+            }
+
+            const btnAtivo = document.getElementById(`nav-${nomeAba}`);
+            if (btnAtivo) btnAtivo.classList.add('active');
+
+            if (nomeAba === 'inicio' && usuarioLogado) carregarPainelMembro();
+            if (nomeAba === 'noticias') carregarNoticias();
+            if (nomeAba === 'sugestoes') carregarSugestoes();
+            if (nomeAba === 'spoilers') carregarSpoilers();
+            if (nomeAba === 'online') carregarOnline();
+            if (nomeAba === 'admin') { carregarAdminSugestoes(); carregarAdminParcerias(); carregarAdminSpoilers(); }
+        }
+
+        // ================== SESSÃO ==================
+
+        async function verificarSessao() {
+            try {
+                const data = await apiJson('/api/user');
+
+                if (data.loggedIn) {
+                    const user = data.user;
+                    usuarioLogado = user;
+                    let avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png';
+
+                    document.getElementById('btn-login').classList.add('hidden');
+                    document.getElementById('user-profile').classList.remove('hidden');
+                    document.getElementById('user-avatar').src = avatarUrl;
+                    document.getElementById('user-name').innerText = user.global_name || user.username;
+
+                    document.getElementById('welcome-card').classList.remove('hidden');
+                    document.getElementById('card-avatar').src = avatarUrl;
+                    document.getElementById('card-name').innerText = user.global_name || user.username;
+                    document.getElementById('card-tag').innerText = '@' + user.username;
+
+                    if (user.isAdmin) {
+                        usuarioEhAdmin = true;
+                        document.getElementById('nav-admin').classList.remove('hidden');
+                        document.getElementById('user-role-badge').innerText = 'ADMINISTRADOR';
+                        document.getElementById('user-role-badge').classList.replace('text-villain-500', 'text-white');
+                    }
+
+                    document.getElementById('painel-membro').classList.remove('hidden');
+                    carregarPainelMembro();
+                }
+            } catch (err) {
+                console.error('Erro na verificação da sessão:', err);
+            }
+        }
+
+        // ================== CENTRAL DO MEMBRO ==================
+
+        async function carregarPainelMembro() {
+            const elNoticia = document.getElementById('membro-ultima-noticia');
+            const elSugestao = document.getElementById('membro-top-sugestao');
+            const elRanking = document.getElementById('membro-ranking');
+
+            try {
+                const [noticias, sugestoes, ranking] = await Promise.all([
+                    apiJson('/api/noticias'),
+                    apiJson('/api/sugestoes'),
+                    apiJson('/api/membros/ranking')
+                ]);
+
+                if (noticias.length > 0) {
+                    const n = noticias[0];
+                    elNoticia.innerHTML = `
+                        <p class="font-bold text-white text-sm mb-1">${escapeHtml(n.titulo)}</p>
+                        <p class="text-zinc-500 text-xs mb-3 line-clamp-2">${escapeHtml(n.texto)}</p>
+                        <button onclick="mudarAba('noticias')" class="text-[10px] font-bold uppercase text-villain-500 hover:text-white transition">Ver todas →</button>
+                    `;
+                } else {
+                    elNoticia.innerHTML = '<p class="text-zinc-500 text-xs">Nenhuma notícia ainda.</p>';
+                }
+
+                if (sugestoes.length > 0) {
+                    const s = sugestoes[0];
+                    elSugestao.innerHTML = `
+                        <p class="font-bold text-white text-sm mb-1">${escapeHtml(s.titulo)}</p>
+                        <p class="text-zinc-500 text-xs mb-3">${s.votos} votos · por @${escapeHtml(s.autor)}</p>
+                        <button onclick="mudarAba('sugestoes')" class="text-[10px] font-bold uppercase text-villain-500 hover:text-white transition">Ver todas →</button>
+                    `;
+                } else {
+                    elSugestao.innerHTML = '<p class="text-zinc-500 text-xs">Nenhuma sugestão ainda. Envie a primeira!</p>';
+                }
+
+                if (ranking.length > 0) {
+                    elRanking.innerHTML = ranking.map((m, i) => {
+                        const avatarUrl = m.avatar ? `https://cdn.discordapp.com/avatars/${m.id}/${m.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png';
+                        return `
+                            <div class="flex items-center gap-2 ${i > 0 ? 'mt-2 pt-2 border-t border-zinc-900' : ''}">
+                                <span class="text-[10px] font-mono text-zinc-600 w-4">${i + 1}º</span>
+                                <img src="${avatarUrl}" class="w-6 h-6 rounded-md border border-zinc-800" alt="">
+                                <span class="text-xs font-bold text-zinc-200 flex-1 truncate">${escapeHtml(m.nome)}</span>
+                                <span class="text-[10px] font-mono text-white">${m.pontos} pts</span>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    elRanking.innerHTML = '<p class="text-zinc-500 text-xs">Participe da comunidade para entrar no ranking!</p>';
+                }
+            } catch (err) {
+                console.error('Erro ao carregar painel do membro:', err);
+            }
+        }
+
+        // ================== ESTATÍSTICAS / ONLINE ==================
+
+        async function carregarStatsHome() {
+            try {
+                const data = await apiJson('/api/online');
+                if (data.success) {
+                    document.getElementById('stat-membros').innerText = data.membros.toLocaleString('pt-BR');
+                    document.getElementById('stat-online').innerHTML = `<span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>${data.online.toLocaleString('pt-BR')}`;
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function carregarOnline() {
+            const nomeEl = document.getElementById('online-nome-servidor');
+            const totalEl = document.getElementById('online-total-membros');
+            const onlineEl = document.getElementById('online-count');
+            try {
+                const data = await apiJson('/api/online');
+                if (data.success) {
+                    nomeEl.innerText = data.nome;
+                    totalEl.innerText = data.membros.toLocaleString('pt-BR');
+                    onlineEl.innerText = data.online.toLocaleString('pt-BR');
+                } else {
+                    totalEl.innerText = '—';
+                    onlineEl.innerText = '—';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ================== NOTÍCIAS ==================
+
+        async function carregarNoticias() {
+            const container = document.getElementById('container-noticias');
+            try {
+                const noticias = await apiJson('/api/noticias');
+
+                if (noticias.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-sm col-span-full text-center">Nenhuma notícia publicada ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = noticias.map(n => `
+                    <div class="glass rounded-2xl overflow-hidden border border-zinc-800 flex flex-col justify-between card-hover">
+                        ${n.imagem ? `<img src="${escapeHtml(n.imagem)}" alt="" class="w-full h-40 object-cover">` : ''}
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-mono bg-villain-950 border border-villain-800 text-villain-500 px-2.5 py-1 rounded-md uppercase">${escapeHtml(n.tag)}</span>
+                                <span class="text-xs font-mono text-zinc-500">${formatarData(n.data)}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">${escapeHtml(n.titulo)}</h3>
+                            <p class="text-zinc-400 text-xs leading-relaxed">${escapeHtml(n.texto)}</p>
+                        </div>
+                        <div class="p-6 pt-0 border-t border-zinc-900/50 mt-4 flex items-center justify-between">
+                            <span class="text-[10px] text-zinc-600 font-mono">por ${escapeHtml(n.autor)}</span>
+                            ${usuarioEhAdmin ? `<button onclick="adminDeletarNoticia(${n.id})" class="text-zinc-600 hover:text-white transition text-xs"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-sm col-span-full text-center">${escapeHtml(err.message || 'Erro ao carregar notícias.')}</p>`;
+            }
+        }
+
+        async function adminPublicarNoticia() {
+            const tag = document.getElementById('admin-noticia-tag').value.trim();
+            const titulo = document.getElementById('admin-noticia-titulo').value.trim();
+            const texto = document.getElementById('admin-noticia-texto').value.trim();
+            const inputImagem = document.getElementById('admin-noticia-imagem');
+            if (!titulo || !texto) return alertaErro('Campos obrigatórios', 'Preencha título e conteúdo.');
+
+            const btn = document.getElementById('btn-publicar-noticia');
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+
+            try {
+                const imagem = await enviarImagem(inputImagem);
+                const data = await apiJson('/api/admin/noticias', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ titulo, texto, tag, imagem })
+                });
+                if (data.success) {
+                    document.getElementById('admin-noticia-tag').value = '';
+                    document.getElementById('admin-noticia-titulo').value = '';
+                    document.getElementById('admin-noticia-texto').value = '';
+                    inputImagem.value = '';
+                    alertaSucesso('Publicado!');
+                    carregarNoticias();
+                } else {
+                    alertaErro('Erro', data.error);
+                }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Publicar';
+            }
+        }
+
+        async function adminDeletarNoticia(id) {
+            try {
+                const data = await apiJson(`/api/admin/noticias/${id}`, { method: 'DELETE' });
+                if (data.success) carregarNoticias();
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        // ================== SPOILERS ==================
+
+        async function carregarSpoilers() {
+            const container = document.getElementById('container-spoilers');
+            try {
+                const spoilers = await apiJson('/api/spoilers');
+
+                if (spoilers.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-sm text-center">Nenhum spoiler publicado ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = spoilers.map(s => {
+                    const pct = Math.min(100, Math.round((s.reacoes / s.meta) * 100));
+                    return `
+                        <div class="glass p-8 rounded-2xl border border-villain-900/50 text-center card-hover">
+                            <div class="flex items-center justify-center gap-2 mb-2 flex-wrap">
+                                <span class="bg-villain-950 text-villain-500 border border-villain-800 text-xs font-mono px-3 py-1 rounded-full uppercase tracking-widest">SPOILER EXCLUSIVO</span>
+                                <span class="text-xs font-mono text-zinc-500">${formatarData(s.data)}</span>
+                            </div>
+                            ${s.imagem ? `<img src="${escapeHtml(s.imagem)}" alt="" class="max-w-md w-full mx-auto rounded-2xl border border-zinc-800 mt-4 shadow-lg">` : ''}
+                            <p class="text-2xl italic font-serif my-6 text-zinc-100">"${escapeHtml(s.texto)}"</p>
+                            <div class="max-w-md mx-auto bg-black/60 p-4 rounded-xl border border-zinc-800 mb-6">
+                                <div class="flex justify-between text-xs font-mono text-zinc-400 mb-2">
+                                    <span>Meta de Reações</span>
+                                    <span>${s.reacoes} / ${s.meta} Reações</span>
+                                </div>
+                                <div class="w-full bg-zinc-800 rounded-full h-3 overflow-hidden">
+                                    <div class="bg-white shadow-[0_0_10px_rgba(255,255,255,0.6)] h-full transition-all duration-500" style="width:${pct}%"></div>
+                                </div>
+                            </div>
+                            <button onclick="adicionarReacao(${s.id})" class="${s.reagi ? 'opacity-70' : ''} bg-villain-600 hover:bg-villain-700 text-black font-bold text-xs uppercase px-6 py-3 rounded-xl transition glow inline-flex items-center gap-2">
+                                <i class="fa-solid ${s.reagi ? 'fa-check' : 'fa-fire'} text-lg"></i> ${s.reagi ? 'Reação Enviada' : 'Deixar Reação no Spoiler'}
+                            </button>
+                            <div class="flex items-center justify-center gap-3 mt-3">
+                                <p class="text-[10px] text-zinc-600 font-mono">por ${escapeHtml(s.autor)}</p>
+                                ${usuarioEhAdmin ? `<button onclick="adminDeletarSpoiler(${s.id})" class="text-zinc-600 hover:text-white transition text-xs"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-sm text-center">${escapeHtml(err.message || 'Erro ao carregar spoilers.')}</p>`;
+            }
+        }
+
+        async function adicionarReacao(id) {
+            if (!usuarioLogado) return exigirLogin();
+            try {
+                const data = await apiJson(`/api/spoilers/${id}/reagir`, { method: 'POST' });
+                if (data.success) carregarSpoilers();
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        async function adminPublicarSpoiler() {
+            const texto = document.getElementById('admin-spoiler-texto').value.trim();
+            const meta = document.getElementById('admin-spoiler-meta').value;
+            const inputImagem = document.getElementById('admin-spoiler-imagem');
+            if (!texto) return alertaErro('Campo obrigatório', 'Digite o texto do spoiler.');
+
+            const btn = document.getElementById('btn-publicar-spoiler');
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+
+            try {
+                const imagem = await enviarImagem(inputImagem);
+                const data = await apiJson('/api/admin/spoilers', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ texto, meta, imagem })
+                });
+                if (data.success) {
+                    alertaSucesso('Spoiler Publicado!');
+                    document.getElementById('admin-spoiler-texto').value = '';
+                    document.getElementById('admin-spoiler-meta').value = '';
+                    inputImagem.value = '';
+                    carregarAdminSpoilers();
+                } else {
+                    alertaErro('Erro', data.error);
+                }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Publicar Spoiler';
+            }
+        }
+
+        async function adminDeletarSpoiler(id) {
+            try {
+                const data = await apiJson(`/api/admin/spoilers/${id}`, { method: 'DELETE' });
+                if (data.success) { carregarSpoilers(); carregarAdminSpoilers(); }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        async function carregarAdminSpoilers() {
+            const container = document.getElementById('admin-lista-spoilers');
+            try {
+                const spoilers = await apiJson('/api/spoilers');
+                if (spoilers.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Nenhum spoiler.</p>';
+                    return;
+                }
+                container.innerHTML = spoilers.map(s => `
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-white line-clamp-2">${escapeHtml(s.texto)}</p>
+                            <p class="text-[10px] text-zinc-500">${s.reacoes} reações · ${formatarData(s.data)}</p>
+                        </div>
+                        <button onclick="adminDeletarSpoiler(${s.id})" class="text-zinc-600 hover:text-white transition text-xs shrink-0"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-xs text-center">${escapeHtml(err.message || 'Erro ao carregar.')}</p>`;
+            }
+        }
+
+        // ================== SUGESTÕES ==================
+
+        async function carregarSugestoes() {
+            const container = document.getElementById('lista-sugestoes');
+            try {
+                const sugestoes = await apiJson('/api/sugestoes');
+
+                if (sugestoes.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-sm text-center">Nenhuma sugestão ainda. Seja o primeiro a enviar uma ideia!</p>';
+                    return;
+                }
+
+                container.innerHTML = sugestoes.map((s, i) => `
+                    <div class="glass p-5 rounded-2xl border border-zinc-800 flex items-start justify-between gap-4 card-hover">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-[10px] font-mono text-villain-500 bg-villain-950/60 border border-villain-900/50 px-2 py-0.5 rounded">SUGESTÃO #${String(i + 1).padStart(2, '0')}</span>
+                                <span class="text-xs font-bold text-zinc-300">por @${escapeHtml(s.autor)}</span>
+                            </div>
+                            <h4 class="font-bold text-white text-sm mb-1">${escapeHtml(s.titulo)}</h4>
+                            <p class="text-zinc-400 text-xs leading-relaxed">${escapeHtml(s.texto)}</p>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-1">
+                            <div class="flex flex-col items-center justify-center bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-xl">
+                                <button onclick="votarSugestao(${s.id}, 1)" class="${s.meuVoto === 1 ? 'text-white' : 'text-zinc-500 hover:text-white'} transition">
+                                    <i class="fa-solid fa-caret-up text-lg"></i>
+                                </button>
+                                <span class="votos-count font-mono font-bold text-xs text-zinc-200">${s.votos}</span>
+                                <button onclick="votarSugestao(${s.id}, -1)" class="${s.meuVoto === -1 ? 'text-white' : 'text-zinc-500 hover:text-white'} transition">
+                                    <i class="fa-solid fa-caret-down text-lg"></i>
+                                </button>
+                            </div>
+                            ${usuarioEhAdmin ? `<button onclick="adminDeletarSugestao(${s.id})" class="text-zinc-600 hover:text-white transition text-[10px]"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-sm text-center">${escapeHtml(err.message || 'Erro ao carregar sugestões.')}</p>`;
+            }
+        }
+
+        async function enviarSugestao() {
+            if (!usuarioLogado) return exigirLogin();
+            const titulo = document.getElementById('sugestao-titulo').value.trim();
+            const texto = document.getElementById('sugestao-texto').value.trim();
+            if (!titulo || !texto) return alertaErro('Campos obrigatórios', 'Preencha título e descrição.');
+
+            try {
+                const data = await apiJson('/api/sugestoes', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ titulo, texto })
+                });
+                if (data.success) {
+                    document.getElementById('sugestao-titulo').value = '';
+                    document.getElementById('sugestao-texto').value = '';
+                    alertaSucesso('Sugestão publicada!');
+                    carregarSugestoes();
+                } else {
+                    alertaErro('Erro', data.error);
+                }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        async function votarSugestao(id, voto) {
+            if (!usuarioLogado) return exigirLogin();
+            try {
+                const data = await apiJson(`/api/sugestoes/${id}/votar`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ voto })
+                });
+                if (data.success) carregarSugestoes();
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        async function adminDeletarSugestao(id) {
+            try {
+                const data = await apiJson(`/api/admin/sugestoes/${id}`, { method: 'DELETE' });
+                if (data.success) { carregarSugestoes(); carregarAdminSugestoes(); }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        // ================== PARCERIAS ==================
+
+        async function solicitarParceria() {
+            const nome = document.getElementById('parceria-nome').value.trim();
+            const link = document.getElementById('parceria-link').value.trim();
+            const desc = document.getElementById('parceria-desc').value.trim();
+            if (!nome || !link || !desc) return alertaErro('Campos obrigatórios', 'Preencha todos os campos.');
+
+            try {
+                const data = await apiJson('/api/parcerias', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, link, desc })
+                });
+                if (data.success) {
+                    document.getElementById('parceria-nome').value = '';
+                    document.getElementById('parceria-link').value = '';
+                    document.getElementById('parceria-desc').value = '';
+                    alertaSucesso('Solicitação enviada!', 'Nossa equipe vai analisar em breve.');
+                } else {
+                    alertaErro('Erro', data.error);
+                }
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        // ================== ADMIN: SUGESTÕES E PARCERIAS ==================
+
+        async function carregarAdminSugestoes() {
+            const container = document.getElementById('admin-lista-sugestoes');
+            try {
+                const sugestoes = await apiJson('/api/sugestoes');
+                if (sugestoes.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Nenhuma sugestão.</p>';
+                    return;
+                }
+                container.innerHTML = sugestoes.map(s => `
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-white">${escapeHtml(s.titulo)}</p>
+                            <p class="text-[10px] text-zinc-500">por @${escapeHtml(s.autor)} · ${s.votos} votos</p>
+                        </div>
+                        <button onclick="adminDeletarSugestao(${s.id})" class="text-zinc-600 hover:text-white transition text-xs shrink-0"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-xs text-center">${escapeHtml(err.message || 'Erro ao carregar.')}</p>`;
+            }
+        }
+
+        async function carregarAdminParcerias() {
+            const container = document.getElementById('admin-lista-parcerias');
+            try {
+                const parcerias = await apiJson('/api/admin/parcerias');
+                if (!Array.isArray(parcerias)) {
+                    container.innerHTML = `<p class="text-zinc-400 text-xs text-center">${escapeHtml(parcerias.error || 'Acesso negado.')}</p>`;
+                    return;
+                }
+                if (parcerias.length === 0) {
+                    container.innerHTML = '<p class="text-zinc-500 text-xs text-center">Nenhuma solicitação.</p>';
+                    return;
+                }
+
+                const badge = { pendente: 'bg-zinc-800 text-zinc-300 border-zinc-700', aprovado: 'bg-white text-black border-white', rejeitado: 'bg-zinc-950 text-zinc-600 border-zinc-800' };
+
+                container.innerHTML = parcerias.map(p => `
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3">
+                        <div class="flex items-start justify-between gap-3 mb-1">
+                            <p class="text-xs font-bold text-white">${escapeHtml(p.nome)}</p>
+                            <span class="text-[9px] font-mono border px-2 py-0.5 rounded uppercase ${badge[p.status]}">${p.status}</span>
+                        </div>
+                        <a href="${escapeHtml(p.link)}" target="_blank" class="text-[10px] text-villain-500 hover:underline break-all">${escapeHtml(p.link)}</a>
+                        <p class="text-[10px] text-zinc-500 mt-1 mb-2">${escapeHtml(p.desc)}</p>
+                        <div class="flex gap-2">
+                            <button onclick="adminAtualizarParceria(${p.id}, 'aprovado')" class="flex-1 bg-villain-600/20 hover:bg-villain-600/40 border border-villain-500/40 text-white text-[10px] font-bold uppercase py-1.5 rounded-lg transition">Aprovar</button>
+                            <button onclick="adminAtualizarParceria(${p.id}, 'rejeitado')" class="flex-1 bg-zinc-800/60 hover:bg-zinc-700 border border-zinc-700 text-zinc-300 text-[10px] font-bold uppercase py-1.5 rounded-lg transition">Rejeitar</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-zinc-400 text-xs text-center">${escapeHtml(err.message || 'Erro ao carregar.')}</p>`;
+            }
+        }
+
+        async function adminAtualizarParceria(id, status) {
+            try {
+                const data = await apiJson(`/api/admin/parcerias/${id}`, {
+                    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if (data.success) carregarAdminParcerias();
+            } catch (err) {
+                alertaErro('Erro', err.message);
+            }
+        }
+
+        (async function iniciar() {
+            await verificarSessao();
+            carregarStatsHome();
+        })();
+    </script>
+</body>
+</html>
