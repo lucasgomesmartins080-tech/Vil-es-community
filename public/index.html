@@ -65,6 +65,32 @@
         .neon-text {
             text-shadow: 0 0 6px rgba(255,255,255,0.55), 0 0 18px rgba(255,255,255,0.3);
         }
+        #faiscas-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .faisca {
+            position: absolute;
+            top: -5vh;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0.7) 45%, transparent 75%);
+            box-shadow: 0 0 6px 1px rgba(255,255,255,0.7), 0 0 14px 2px rgba(255,255,255,0.25);
+            animation-name: cair-faisca;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        @keyframes cair-faisca {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            8% { opacity: 1; }
+            85% { opacity: .7; }
+            100% { transform: translateY(115vh) translateX(var(--faisca-drift, 20px)); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #faiscas-bg { display: none; }
+        }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 8px; }
@@ -72,6 +98,8 @@
     </style>
 </head>
 <body class="bg-black text-zinc-100 min-h-screen flex flex-col font-sans selection:bg-white selection:text-black">
+
+    <div id="faiscas-bg"></div>
 
     <!-- Navegação Superior -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-zinc-900">
@@ -1068,7 +1096,40 @@
             }
         }
 
+        // ================== FAÍSCAS DE FUNDO ==================
+
+        function criarFaiscas() {
+            const container = document.getElementById('faiscas-bg');
+            if (!container) return;
+
+            const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduzMovimento) return;
+
+            const quantidade = window.innerWidth < 640 ? 16 : 36;
+
+            for (let i = 0; i < quantidade; i++) {
+                const faisca = document.createElement('span');
+                faisca.className = 'faisca';
+
+                const tamanho = (Math.random() * 2.5 + 1).toFixed(1);
+                const esquerda = (Math.random() * 100).toFixed(1);
+                const duracao = (Math.random() * 6 + 5).toFixed(1);
+                const atraso = (Math.random() * -12).toFixed(1);
+                const deriva = (Math.random() * 60 - 30).toFixed(0);
+
+                faisca.style.width = `${tamanho}px`;
+                faisca.style.height = `${tamanho}px`;
+                faisca.style.left = `${esquerda}%`;
+                faisca.style.animationDuration = `${duracao}s`;
+                faisca.style.animationDelay = `${atraso}s`;
+                faisca.style.setProperty('--faisca-drift', `${deriva}px`);
+
+                container.appendChild(faisca);
+            }
+        }
+
         (async function iniciar() {
+            criarFaiscas();
             await verificarSessao();
             carregarStatsHome();
         })();
