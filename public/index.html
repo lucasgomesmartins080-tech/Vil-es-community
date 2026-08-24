@@ -89,7 +89,7 @@
             100% { transform: translateY(115vh) translateX(var(--faisca-drift, 20px)); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
-            #faiscas-bg { display: none; }
+            .faisca { animation-duration: 18s !important; }
         }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #09090b; }
@@ -1103,9 +1103,8 @@
             if (!container) return;
 
             const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduzMovimento) return;
-
-            const quantidade = window.innerWidth < 640 ? 16 : 36;
+            const base = window.innerWidth < 640 ? 16 : 36;
+            const quantidade = reduzMovimento ? Math.round(base / 3) : base;
 
             for (let i = 0; i < quantidade; i++) {
                 const faisca = document.createElement('span');
